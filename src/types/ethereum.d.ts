@@ -1,0 +1,14 @@
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: unknown[] | Record<string, unknown> }) => Promise<unknown>;
+      on?: (event: string, handler: (...args: unknown[]) => void) => void;
+      removeListener?: (event: string, handler: (...args: unknown[]) => void) => void;
+      isMetaMask?: boolean;
+      // allow additional provider-specific fields
+      [key: string]: unknown;
+    };
+  }
+}
+
+export {};
