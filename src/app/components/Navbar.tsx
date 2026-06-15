@@ -2,7 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import WalletButton from "./WalletButton";
 
-function Navbar() {
+interface NavbarProps {
+  wallet: string | null;
+  balance: string;
+  onConnectWallet: () => Promise<void>;
+}
+
+function Navbar({ wallet, balance, onConnectWallet }: NavbarProps) {
   return (
     <header className="flex items-center justify-between p-4 bg-[#FEFDFD]-800 text-[#91908F]">
       <div>
@@ -14,7 +20,6 @@ function Navbar() {
             className="w-10 h-10"
             style={{ width: 'auto', height: 'auto' }}
             alt="Logo"
-            // loading="eager"
           />
         </Link>
       </div>
@@ -28,7 +33,7 @@ function Navbar() {
         </ul>
       </nav>
       <div>
-       <WalletButton />
+        <WalletButton wallet={wallet} balance={balance} onConnectWallet={onConnectWallet} />
       </div>
     </header>
   );

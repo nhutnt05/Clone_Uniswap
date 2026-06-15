@@ -4,16 +4,19 @@ import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { tokens } from "../../data/tokens";
 
+interface SwapCardProps {
+  balance: string;
+}
 
-function SwapCard() {
+function SwapCard({ balance }: SwapCardProps) {
   const [fromToken, setFromToken] = useState(tokens[0]);
-  // const [toToken, setToToken] = useState(tokens[1]);
-  // console.log(fromToken);
   const [amount, setAmount] = useState("");
+
   return (
     <>
       <div className="flex flex-col items-center justify-center ">
         <div className="text-2xl font-bold ">Hoán đổi mọi lúc, mọi nơi.</div>
+        <div className="text-sm text-gray-500 mt-2">Số dư ví: {balance} ETH</div>
         <div className="w-105">
           <div className="border border-gray-300 p-4 rounded-xl mt-4">
             <div>Bán</div>
@@ -30,7 +33,9 @@ function SwapCard() {
                 <select
                   value={fromToken.symbol}
                   onChange={(e) => {
-                    const token = tokens.find((t) => t.symbol === e.target.value);
+                    const token = tokens.find(
+                      (t) => t.symbol === e.target.value,
+                    );
                     if (token) setFromToken(token);
                   }}
                 >

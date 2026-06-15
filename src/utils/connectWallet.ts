@@ -1,4 +1,4 @@
-import { BrowserProvider } from "ethers";
+import { BrowserProvider, formatEther } from "ethers";
 
 // Local fallback type to avoid dependency on '@ethersproject/providers'
 // when type declarations are not available in the environment.
@@ -18,4 +18,15 @@ export async function connectWallet() {
     const accounts = await provider.send("eth_requestAccounts", []);
 
     return accounts[0];
+}
+
+export async function getBalance(address: string) {
+  // Use the same ExternalProvider type to avoid unexpected `any` on window.ethereum
+  const provider = new BrowserProvider(window.ethereum as ExternalProvider);
+
+  const balance = await provider.getBalance(
+    address
+  );
+
+  return formatEther(balance);
 }
